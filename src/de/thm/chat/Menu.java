@@ -8,6 +8,7 @@ import de.thm.chat.hamster.astar.Hamster;
 import de.thm.chat.hamster.astar.Territorium;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Die Klasse Menu stellt Methoden zum Anzeigen und Interagieren mit dem Chat-Menü bereit.
@@ -129,12 +130,15 @@ public class Menu{
                 String name = userInput.nextLine();
                 String[] nameHamster = new String[]{name};
                 ChatPartner.partnerAnschreiben(Main.server, Main.session, nameHamster,false, "init");
-                Hamster standard = new Hamster(new String[]{"herbert"});
+                Message message = new Message(Main.server, Main.session);
+                Hamster standard = new Hamster(nameHamster);
+
                 //Message message = new Message(Main.server, Main.session);
                 String[] messageString;
                 try
                 {
-                    messageString = Main.server.getMostRecentMessages(Main.session.getSessionUserName(), Main.session.getSessionPassword());
+                    TimeUnit.SECONDS.sleep(5);
+                    messageString = message.getManyMessageRaw(2);
                 }
                 catch (Exception e)
                 {
@@ -142,12 +146,17 @@ public class Menu{
                     messageString = null;
                 }
 
+                for (int i= 0; i < messageString.length ;i++)
+                {
+                    System.out.println(messageString[i]);
+                }
+
+                //System.out.println(messageString.toString());
 
                 Territorium territorium = new Territorium();
-                territorium.GenerateTerritoriumFromMessage(messageString);
+                territorium.GenerateTerritoriumFromMessage();
                 AStern test = new AStern(standard);
                 test.hamsterNutztAStern(standard);
-
                 break;
 
             case 7: //quit

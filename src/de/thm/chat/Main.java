@@ -2,6 +2,7 @@ package de.thm.chat;
 
 import java.util.Scanner;
 import de.thm.chat.SessionHandler.Session;
+import de.thm.chat.hamster.astar.Territorium;
 import de.thm.oop.chat.base.server.BasicTHMChatServer;
 /**
 * Die Hauptklasse des Chat-Anwendungsprogramms.
@@ -27,6 +28,7 @@ public class Main {
     */
     public static void main(String[] args)
     {
+
         //EiP_Projekt3
         server = new BasicTHMChatServer();
         input = new Scanner(System.in);

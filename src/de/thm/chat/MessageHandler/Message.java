@@ -62,6 +62,41 @@ public class Message
         }
         
     }
+    public String[] getManyMessageRaw(int numMessages)
+    {
+        String[] messages;
+        try
+        {
+            if (numMessages <= 100 )
+            {
+                messages = this.server.getMostRecentMessages(this.session.getSessionUserName(), this.session.getSessionPassword());
+            }
+            else
+            {
+                messages = this.server.getMessages(this.session.getSessionUserName(), this.session.getSessionPassword(), 0);
+            }
+
+            if(messages.length < numMessages)
+            {
+                numMessages = messages.length;
+            }
+
+            System.out.println("Es werden " + numMessages + " Nachrichten angezeigt.");
+            String[] finalMessage = new String[0];
+            for (int i = messages.length - numMessages - 1 ; i < messages.length; i++)
+            {
+                finalMessage = messages;
+            }
+
+            return finalMessage;
+        }
+        catch (Exception e)
+        {
+            //e.printStackTrace();
+            System.out.println("Nachrichten konnten nicht ausgegeben werden");
+        }
+        return null;
+    }
 
     
     /**
